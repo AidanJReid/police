@@ -1,30 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dc/3.1.3/dc.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+    <title>UFO Data</title>
 </head>
+
 <body>
-    <title>Police Visuals</title>
+
     <div class="container">
-        <div id="container-open" class="text-center">
-            <h1>Police</h1>
-            <h3>The Truth <i>isn't</i> out there. It's in here...</h3>
-            <div class="panel">
-                <p>This page presents a snapshot of the accumulated UFO data across one year (August 2016 - August 2017) as gathered by the <a href="http://www.nuforc.org/" target="_blank">NUFORC</a> (National UFO Reporting Center).</p>
-                <p>The charts provided can be crossfiltered accordingly to provide the user with an understanding of the <i>behaviour</i>, <i>pattern</i>, <i>location</i> and <i>frequency</i> of UFO sightings for the aforementioned year worldwide.</p>
-                <hr>
-                <p>The recommended selectors for primary filter are Chart 1 - UFO Sightings by Date, and Chart 3 - Sightings by State.</p>
-            </div>
-        </div>
+
+        <!--Chart 1 - Line Graph-->
 
         <div class="container-blocks row text-center">
             <div class="col-12">
-                <h3 class="chart-headings">Police by Date:</h3>
+                <h3 class="chart-headings">UFO sightings by Date:</h3>
                 <h5>Total number of (global) sightings for the period between August 2016 - 2017</h5>
                 <p class="section-paragraph">Users can drill into the menu to reveal the number of sightings by continent.</p>
                 <div id="continent-selector"></div>
@@ -34,7 +31,80 @@
             </div>
             <div class="col-12" id="line-chart"></div>
         </div>
+
+        <!--Chart 2 - Row Chart-->
+
+        <div class="container-blocks row text-center">
+            <div class="col-12">
+                <h3 class="chart-headings">Global Sightings</h3>
+                <h5>Continental Sightings by frequency</h5>
+                <p class="section-paragraph">N.B. Users are reminded that the continent of North America includes Canada and Mexico, which may explain apparent anomalies in the data.</p>
+                <div class="col-12" id="non-us"></div>
+            </div>
+        </div>
+
+        <!--Chart 3 - Bar Chart-->
+
+        <div class="container-blocks row text-center">
+            <div class="col-12">
+                <h3 class="chart-headings">Sightings by State</h3>
+                <h5>Total number of reported sightings by US state</h5>
+                <p class="section-paragraph">N.B. The state listed as 'XX' denotes a location outside of the US.</p>
+                <div id="state-selector"></div>
+                <div id="refresh-button">
+                    <button type="submit" class="btn btn-danger" onClick="refreshPage()">Reset Charts</button>
+                </div>
+                <div id="state"></div>
+            </div>
+        </div>
+
+        <!--Chart 4 - Pie Chart (duration)-->
+
+        <div class="container-blocks row text-center">
+            <div class="col-xs-12 col-md-6">
+                <h3 class="chart-headings">Duration of UFO sightings: </h3>
+                <p class="section-paragraph">The most frequent sighting of UFOs lasts for less than a minute.</p>
+                <div id="duration"></div>
+            </div>
+
+        <!--Chart 5 - Pie Chart (shapes)    -->
+
+            <div class="col-xs-12 col-md-6">
+                <h3 class="chart-headings">Shape of UFOs spotted: </h3>
+                <p class="section-paragraph">The most common defined UFO shape observed is as a light form.</p>
+                <div id="shapes"></div>
+            </div>
+        </div>
+
+        <!--CHARTS END-->
+
+        <!--SUMMARY SECTION-->
+
+        <div class="container-blocks row">
+            <div id="summary">
+                <h3>Summary</h3>
+                <p id="summary-paragraph">Based on the charts and the sample size for the 12 month period, we can conclude:</p>
+                <ul>
+                    <li>97% of reported sightings occurred in the continent of North America.</li>
+                    <li>The US state of California reported the most number of sightings (505).</li>
+                    <li>The majority of all sightings ~ 32% lasted a minute or less with the most observed 'shape' being a light source.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!--RESOURCE SECTION-->
+
+        <div class="container-blocks row">
+            <div id="resources">
+                <h3>Additional Resources</h3>
+                <p>The original data used in this dashboard is sourced from <a href="https://data.world/timothyrenner/ufo-sightings" target="_blank">Data.World</a>.</p>
+                <p>Further information about UFO sightings and how to report them can be found at the <a href="http://www.nuforc.org/"  target="_blank">NUFORC</a> site.</p>
+            </div>
+        </div>
     </div>
+
+
+    <!-- scripts at bottom to ensure prompt loading -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -42,6 +112,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
-    <script src="app.js"></script>
+    <script src="js/main.js"></script>
+
 </body>
+
 </html>
